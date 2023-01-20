@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Users
+
+model User {
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  name        String
+  password    String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  UserAddress UserAddress[]
+  Orders      Orders[]
+}
+
+model UserAddress {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  street    String
+  number    String
+  zipcode   String
+  city      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int
+}
+
+// Category
+
+model Category {
+  id        Int        @id @default(autoincrement())
+  category  String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  products  Products[]
+}
+
+// Products
+
+model Products {
+  id         Int          @id @default(autoincrement())
+  name       String
+  category   Category     @relation(fields: [categoryId], references: [id])
+  price      Float
+  imgUrl     String
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  categoryId Int
+  OrderItems OrderItems[]
+}
+
+//Status
+
+model Status {
+  id     Int      @id @default(autoincrement())
+  state  String
+  Orders Orders[]
+}
+
+// Orders
+
+model Orders {
+  id             Int          @id @default(autoincrement())
+  user           User         @relation(fields: [userId], references: [id])
+  status         Status       @relation(fields: [statusId], references: [id])
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  userId         Int
+  statusId       Int
+  paymentId      String?
+  merchanOrderId String?
+  OrderItems     OrderItems[]
+}
+
+model OrderItems {
+  id         Int      @id @default(autoincrement())
+  order      Orders   @relation(fields: [ordersId], references: [id])
+  product    Products @relation(fields: [productsId], references: [id])
+  quantity   Int
+  unitPrice  Float
+  ordersId   Int
+  productsId Int
+}
