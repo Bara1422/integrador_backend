@@ -13,11 +13,12 @@ export const signin = async (
   if (!errors.isEmpty()) {
     return next(new RequestValidationError(errors.array()));
   }
-  const { name, email, password } = req.body;
+  const { name, email, password, roleId } = req.body;
   const signinResponse = await interactors.SigninAuthInteractor({
     name,
     email,
     password,
+    roleId: Number(roleId),
   });
 
   res.status(200).json({ message: "success", ...signinResponse });

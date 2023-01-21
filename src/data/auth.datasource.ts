@@ -1,4 +1,4 @@
-import { AuthLogin, AuthResponse, AuthSignIn } from "../core/dto/Auth";
+import { AuthLogin, AuthDto, AuthSignIn } from "../core/dto/Auth";
 import AuthRepository from "../core/repositories/auth.respository";
 import { User } from "@prisma/client";
 import { prisma } from "../config/db";
@@ -7,7 +7,7 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 
 export default class AuthDataSource implements AuthRepository {
-  public async signin(data: AuthSignIn): Promise<AuthResponse | null> {
+  public async signin(data: AuthSignIn): Promise<AuthDto | null> {
     const existUser = await prisma.user.findUnique({
       where: { email: data.email },
     });
@@ -23,6 +23,10 @@ export default class AuthDataSource implements AuthRepository {
         name: data.name,
         email: data.email,
         password: hashPassword,
+        roleId: data.roleId,
+        include: {
+          role: true,
+        },
       },
     });
 
@@ -34,12 +38,19 @@ export default class AuthDataSource implements AuthRepository {
       email: user.email,
       token,
       expiresIn: 60 * 60 * 1000,
+      role: {
+        roleId: user.roleId,
+        roleName: user.role.role,
+      },
     };
   }
 
-  public async login(data: AuthLogin): Promise<AuthResponse | null> {
+  public async login(data: AuthLogin): Promise<AuthDto | null> {
     const existUser = await prisma.user.findUnique({
       where: { email: data.email },
+      include: {
+        role: true,
+      },
     });
     if (!existUser) {
       return null;
@@ -58,6 +69,10 @@ export default class AuthDataSource implements AuthRepository {
       email: existUser.email,
       token,
       expiresIn: 60 * 60 * 1000,
+      role: {
+        roleId: existUser.roleId,
+        roleName: existUser.role.role,
+      },
     };
   }
 
