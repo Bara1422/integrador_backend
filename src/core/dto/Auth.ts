@@ -23,3 +23,10 @@ export interface AuthDto {
   expiresIn: number;
   role: RoleDto;
 }
+
+export interface UserDto {
+  userId: number;
+  name: string;
+  email: string;
+  role: RoleDto;
+}
