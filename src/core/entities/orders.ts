@@ -6,7 +6,7 @@ export interface OrderItems {
   productsId: number;
 }
 
-export interface Orders {
+export interface Order {
   id: number;
   createdAt: Date;
   updatedAt: Date;

@@ -14,28 +14,15 @@ model Role {
 }
 
 model User {
-  id          Int           @id @default(autoincrement())
-  email       String        @unique
-  name        String
-  password    String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  roleId      Int
-  Orders      Orders[]
-  role        Role          @relation(fields: [roleId], references: [id])
-  UserAddress UserAddress[]
-}
-
-model UserAddress {
   id        Int      @id @default(autoincrement())
-  street    String
-  number    String
-  zipcode   String
-  city      String
+  email     String   @unique
+  name      String
+  password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
+  roleId    Int
+  Orders    Orders[]
+  role      Role     @relation(fields: [roleId], references: [id])
 }
 
 model Category {
@@ -58,7 +45,7 @@ model Products {
   category   Category     @relation(fields: [categoryId], references: [id])
 }
 
-model Status {
+model States {
   id     Int      @id @default(autoincrement())
   state  String
   Orders Orders[]
@@ -72,8 +59,11 @@ model Orders {
   statusId        Int
   paymentId       String?
   merchanOrderId  String?
+  shippingPrice   Float
+  subtotal        Float
+  total           Float
   OrderItems      OrderItems[]
-  status          Status            @relation(fields: [statusId], references: [id])
+  status          States            @relation(fields: [statusId], references: [id])
   user            User              @relation(fields: [userId], references: [id])
   ShippingDetails ShippingDetails[]
 }
