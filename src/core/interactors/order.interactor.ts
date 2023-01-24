@@ -27,6 +27,7 @@ export const createOrderInteractor =
     const preference = await paymentRepository.createPreference({
       external_reference: newOrder.result.id.toString(),
       items: paymentItems,
+      shipmentCost: OrderRequestDto.shippingPrice,
     });
     return {
       success: true,

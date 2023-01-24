@@ -6,7 +6,7 @@ async function seed() {
   /* await prisma.role.createMany({
     data: [{ role: "admin" }, { role: "user" }],
   }); */
-  await prisma.category.createMany({
+  /* await prisma.category.createMany({
     data: [
       { category: "Placa de video" },
       { category: "Motherboard" },
@@ -51,6 +51,28 @@ async function seed() {
         imgUrl: "/img/1660.png",
         categoryId: 1,
         price: 65000,
+      },
+    ],
+  }); */
+  await prisma.states.createMany({
+    data: [
+      {
+        state: "active",
+      },
+      {
+        state: "pending",
+      },
+      {
+        state: "cancelled",
+      },
+      {
+        state: "disabled",
+      },
+      {
+        state: "approved",
+      },
+      {
+        state: "rejected",
       },
     ],
   });

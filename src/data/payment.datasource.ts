@@ -19,6 +19,9 @@ export default class PaymentDataSource implements PaymentRepository {
         success: process.env.SUCCESS_URL,
         failure: process.env.FAILURE_URL,
       },
+      shipments: {
+        cost: data.shipmentCost,
+      },
     };
 
     const preference = await preferences.create(preferenceData);

@@ -11,4 +11,5 @@ export const validateRequest = async (
   if (!errors.isEmpty()) {
     return next(new RequestValidationError(errors.array()));
   }
+  next();
 };

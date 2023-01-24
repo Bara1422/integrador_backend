@@ -47,7 +47,7 @@ model Products {
 
 model States {
   id     Int      @id @default(autoincrement())
-  state  String
+  state  String   @unique
   Orders Orders[]
 }
 
