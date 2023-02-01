@@ -1,6 +1,6 @@
-import { prisma } from "../config/db";
-import { UserDto } from "../core/dto/Auth";
-import UserRepository from "../core/repositories/user.repository";
+import { prisma } from '../config/db'
+import { UserDto } from '../core/dto/Auth'
+import UserRepository from '../core/repositories/user.repository'
 
 export default class UserDataSource implements UserRepository {
   public async getUserById(userId: number): Promise<UserDto | null> {
@@ -9,10 +9,10 @@ export default class UserDataSource implements UserRepository {
       include: {
         role: true,
       },
-    });
+    })
 
     if (!user) {
-      return null;
+      return null
     }
     return {
       userId: user.id,
@@ -22,6 +22,6 @@ export default class UserDataSource implements UserRepository {
         roleId: user.roleId,
         roleName: user.role.role,
       },
-    };
+    }
   }
 }

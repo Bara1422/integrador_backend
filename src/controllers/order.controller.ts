@@ -1,17 +1,46 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express'
 
-import interactors from "../core/interactors";
+import interactors from '../core/interactors'
 
 export const createOrder = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const order = await interactors.CreateOrderInteractor(req.body);
+  const order = await interactors.CreateOrderInteractor(req.body)
 
   if (!order.success) {
-    return next(order.err);
+    return next(order.err)
   }
 
-  res.status(200).json({ state: "success", data: order });
-};
+  res.status(200).json({ state: 'success', data: order })
+}
+
+export const getOrder = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const orders = await interactors.GetOrderInteractor()
+
+  if (!orders.success) {
+    return next(orders.err)
+  }
+
+  res.status(200).json({ state: 'success', data: orders })
+}
+
+export const getOrdersByUserId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const ordersByUserId = await interactors.GetOrderByUserIdInteractor(
+    req.body.userId
+  )
+  if (!ordersByUserId.success) {
+    return next(ordersByUserId.err)
+  }
+
+  res.status(200).json({ state: 'success', data: ordersByUserId })
+}

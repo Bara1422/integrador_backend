@@ -1,9 +1,9 @@
-import { Products } from "../entities/product";
+import { Products } from '../entities/product'
 
 export interface CategoryDto {
-  id: number;
-  category: string;
-  createdAt: Date;
-  updatedAt: Date;
-  products: Products[];
+  id: number
+  category: string
+  createdAt: Date
+  updatedAt: Date
+  products: Products[]
 }

@@ -1,12 +1,12 @@
 import {
   MercadoPagoPaymentRequest,
   MercadoPagoResponse,
-} from "../dto/mercadopago";
+} from '../dto/mercadopago'
 
 interface PaymentRepository {
   createPreference(
     data: MercadoPagoPaymentRequest
-  ): Promise<MercadoPagoResponse>;
+  ): Promise<MercadoPagoResponse>
 }
 
-export default PaymentRepository;
+export default PaymentRepository

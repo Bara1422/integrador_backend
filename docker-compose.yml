@@ -2,7 +2,7 @@
 # docker-compose up
 # docker-compose stop
 # docker-compose down
-version: "3.8"
+version: '3.8'
 services:
   # This starts a local PostgreSQL DB.
   db:
@@ -10,9 +10,9 @@ services:
     container_name: integrador_backend
     restart: always
     expose:
-      - "5432"
+      - '5432'
     ports:
-      - "5432:5432"
+      - '5432:5432'
 
     environment:
       - POSTGRES_DB=integrador_backend

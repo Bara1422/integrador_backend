@@ -1,13 +1,12 @@
-import { AuthLogin, AuthDto, AuthSignIn } from "../core/dto/Auth";
-import AuthRepository from "../core/repositories/auth.respository";
-import { User } from "@prisma/client";
-import { prisma } from "../config/db";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcryptjs";
-import crypto from "crypto";
-import { Result } from "../core/types/response";
-import { NotFoundError } from "../errors/not-found-error";
-import { BadRequestError } from "../errors/bad-request-error";
+import { AuthLogin, AuthDto, AuthSignIn } from '../core/dto/Auth'
+import AuthRepository from '../core/repositories/auth.respository'
+import { User } from '@prisma/client'
+import { prisma } from '../config/db'
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
+import { Result } from '../core/types/response'
+import { NotFoundError } from '../errors/not-found-error'
+import { BadRequestError } from '../errors/bad-request-error'
 
 export default class AuthDataSource implements AuthRepository {
   public async login(data: AuthLogin): Promise<Result<AuthDto>> {
@@ -18,21 +17,21 @@ export default class AuthDataSource implements AuthRepository {
       include: {
         role: true,
       },
-    });
+    })
     if (!existUser) {
-      return { success: false, err: new NotFoundError() };
+      return { success: false, err: new NotFoundError() }
     }
 
-    const isMatch = await this.matchPassword(existUser, data.password);
+    const isMatch = await this.matchPassword(existUser, data.password)
 
     if (!isMatch) {
       return {
         success: false,
-        err: new BadRequestError("Email o contraseña invalida"),
-      };
+        err: new BadRequestError('Email o contraseña invalida'),
+      }
     }
 
-    const token = this.getSignedToken(existUser);
+    const token = this.getSignedToken(existUser)
     return {
       success: true,
       result: {
@@ -46,21 +45,21 @@ export default class AuthDataSource implements AuthRepository {
           roleName: existUser.role.role,
         },
       },
-    };
+    }
   }
   public async signin(data: AuthSignIn): Promise<Result<AuthDto>> {
     const existUser = await prisma.user.findUnique({
       where: { email: data.email },
-    });
+    })
     if (existUser) {
       return {
         success: false,
-        err: new BadRequestError("Este usuario ya existe"),
-      };
+        err: new BadRequestError('Este usuario ya existe'),
+      }
     }
 
-    const salt = await bcrypt.genSalt(10);
-    let hashPassword = await bcrypt.hash(data.password, salt);
+    const salt = await bcrypt.genSalt(10)
+    let hashPassword = await bcrypt.hash(data.password, salt)
 
     const user = await prisma.user.create({
       data: {
@@ -72,8 +71,8 @@ export default class AuthDataSource implements AuthRepository {
       include: {
         role: true,
       },
-    });
-    const token = this.getSignedToken(user);
+    })
+    const token = this.getSignedToken(user)
 
     return {
       success: true,
@@ -88,16 +87,16 @@ export default class AuthDataSource implements AuthRepository {
           roleName: user.role.role,
         },
       },
-    };
+    }
   }
 
   private getSignedToken(user: User): string {
     return jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
       expiresIn: process.env.JWT_EXPIRE!,
-    });
+    })
   }
 
   private async matchPassword(user: User, password: string): Promise<boolean> {
-    return await bcrypt.compare(password, user.password);
+    return await bcrypt.compare(password, user.password)
   }
 }

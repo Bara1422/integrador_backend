@@ -1,16 +1,13 @@
-import { Router } from "express";
+import { Router } from 'express'
 
-import {
-  createCategory,
-  getCategory,
-} from "../controllers/category.controller";
+import { createCategory, getCategory } from '../controllers/category.controller'
 
-import { protect, authorized } from "../middlewares/auth";
+import { protect, authorized } from '../middlewares/auth'
 
-const router = Router();
+const router = Router()
 
 router
-  .get("/", getCategory)
-  .post("/", protect, authorized("admin"), createCategory);
+  .get('/', getCategory)
+  .post('/', protect, authorized('admin'), createCategory)
 
-export default router;
+export default router
