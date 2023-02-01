@@ -39,7 +39,7 @@ export default class AuthDataSource implements AuthRepository {
         name: existUser.name,
         email: existUser.email,
         token,
-        expiresIn: 60 * 60 * 1000,
+        expiresIn: 3600000,
         role: {
           roleId: existUser.roleId,
           roleName: existUser.role.role,
@@ -81,7 +81,7 @@ export default class AuthDataSource implements AuthRepository {
         name: user.name,
         email: user.email,
         token,
-        expiresIn: 60 * 60 * 1000,
+        expiresIn: 3600000,
         role: {
           roleId: user.roleId,
           roleName: user.role.role,
