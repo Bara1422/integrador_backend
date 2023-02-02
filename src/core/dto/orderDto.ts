@@ -11,7 +11,7 @@ export interface OrderRequestDto {
     domicilio: string
     localidad: string
   }
-  OrderItems: OrderItems[]
+  items: OrderItems[]
   shippingPrice: number
   subtotal: number
   total: number

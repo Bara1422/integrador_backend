@@ -20,7 +20,7 @@ export const createOrderInteractor =
     }
 
     let paymentItems: PaymentItem[] = []
-    OrderRequestDto.OrderItems.forEach((item) => {
+    OrderRequestDto.items.forEach((item) => {
       paymentItems.push({
         currency_id: Currencies.ARS,
         unit_price: item.unitPrice,

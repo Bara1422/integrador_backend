@@ -18,7 +18,7 @@ export default class OrderDatasource implements OrderRepository {
       return { success: false, err: new ServerError('Erroren el servidor') }
     }
 
-    const oi: OrderItems[] = data.OrderItems.map((item) => {
+    const oi: OrderItems[] = data.items.map((item) => {
       return {
         unitPrice: item.unitPrice,
         quantity: item.quantity,
