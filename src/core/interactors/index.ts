@@ -39,6 +39,7 @@ const SigninAuthInteractor = signinAuthInteractor(authRepository)
 const GetUserByIdInteractor = getUserByIdInteractor(userRepository)
 const GetOrderByUserIdInteractor = getOrderByUserIdInteractor(orderRepository)
 const GetOrderInteractor = getOrderInteractor(orderRepository)
+/* const GetOrderItemsByOrderId = getOrderByUserIdInteractor(orderRepository) */
 const GetProductsInteractor = getProductsInteractor(productsRepository)
 const GetProductsByIdInteractor = getProductsByIdInteractor(productsRepository)
 const UpdateProductInteractor = updateProductInteractor(productsRepository)
@@ -57,6 +58,7 @@ const interactors = {
   GetUserByIdInteractor,
   CreateOrderInteractor,
   GetOrderByUserIdInteractor,
+  /*   GetOrderItemsByOrderId, */
   GetOrderInteractor,
   GetProductsInteractor,
   GetProductsByIdInteractor,

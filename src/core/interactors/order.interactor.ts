@@ -3,7 +3,7 @@ import { OrderRequestDto, OrderResponseDto } from '../dto/orderDto'
 import { Result } from '../types/response'
 import PaymentRepository from '../repositories/payment.repository'
 import { Currencies, PaymentItem } from '../dto/mercadopago'
-import { Order } from '../entities/orders'
+import { Order, OrderItems } from '../entities/orders'
 import { Orders } from '@prisma/client'
 
 //getOrder = no tendria ninguna dependencia
@@ -51,3 +51,10 @@ export const getOrderByUserIdInteractor =
     const ordersById = await orderRepository.getOrdersByUserId(userId)
     return ordersById
   }
+
+/* export const getOrderItemsByOrderIdInteractor =
+  (orderRepository: OrderRepository) =>
+  async (id: number): Promise<Result<Orders>> => {
+    const orderItemsByOrderId = await orderRepository.getOrderItemsByOrderId(id)
+    return orderItemsByOrderId
+  } */

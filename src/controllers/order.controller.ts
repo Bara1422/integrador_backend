@@ -44,3 +44,16 @@ export const getOrdersByUserId = async (
 
   res.status(200).json({ state: 'success', data: ordersByUserId })
 }
+/* 
+export const getOrderItemsByOrderId = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const orderItemsByOrderId = await interactors.GetOrderItemsByOrderId(req.body)
+  if (!orderItemsByOrderId.success) {
+    return next(orderItemsByOrderId.err)
+  }
+  res.status(200).json({ state: 'success', data: orderItemsByOrderId })
+} */
+

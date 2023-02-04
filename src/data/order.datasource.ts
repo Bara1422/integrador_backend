@@ -51,6 +51,7 @@ export default class OrderDatasource implements OrderRepository {
       return { success: false, err: new ServerError('Hubo un error') }
     }
   }
+  
   public async getOrders(): Promise<Result<Order[]>> {
     try {
       const orders = await prisma.orders.findMany()
@@ -69,4 +70,13 @@ export default class OrderDatasource implements OrderRepository {
     }
     return { success: true, result: ordersByUserId }
   }
+  /*   public async getOrderItemsByOrderId(id: number): Promise<Result<Orders>> {
+    const orderItemsByOrderId = await prisma.orders.findUnique({
+      where: { id: id },
+    })
+    if (!orderItemsByOrderId) {
+      let err = new ServerError('No hay ordenes con este Id')
+    }
+    return { success: true, result: orderItemsByOrderId }
+  }*/
 }
