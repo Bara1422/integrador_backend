@@ -28,6 +28,7 @@ server.use('/api/v1', handlers)
 server.use(errorHandler)
 
 server.get('/', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
   res.json({ message: 'Deberias iniciar los request en /api/v1/<entidad>' })
 })
 
