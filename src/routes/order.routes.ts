@@ -36,7 +36,7 @@ router.post(
   body('total').isNumeric().notEmpty(),
   validateRequest,
   protect,
-  createOrder,
+  createOrder
 )
 //agregar el get -> controller getOrder
 export default router
