@@ -14,6 +14,7 @@ export const createOrder = async (
   }
 
   res.status(200).json({ state: 'success', data: order })
+  res.header('Access-Control-Allow-Origin', '*')
 }
 
 export const getOrder = async (
@@ -56,4 +57,3 @@ export const getOrderItemsByOrderId = async (
   }
   res.status(200).json({ state: 'success', data: orderItemsByOrderId })
 } */
-
