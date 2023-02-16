@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
+
 import interactors from '../core/interactors'
 import { NotAuthorizedError } from '../errors/not-authorized'
 import jwt from 'jsonwebtoken'
@@ -16,9 +17,7 @@ export const protect = async (
     token = req.headers.authorization.split(' ')[1]
   }
   if (!token) {
-    return res
-      .status(401)
-      .json({ error: 'No se proporciono un token de autorizacion' })
+    return res.redirect('/login')
   }
   try {
     const decode: any = jwt.verify(token, process.env.JWT_SECRET!)
@@ -26,13 +25,13 @@ export const protect = async (
     let user = await interactors.GetUserByIdInteractor(decode.id)
 
     if (!user) {
-      return res.status(401).json({ error: 'Token de autorizacion no valido' })
+      return res.redirect('/login')
     }
 
     req.user = user
     return next()
   } catch (error) {
-    return res.status(401).json({ error: 'token de autorizacion no valido' })
+    return res.redirect('/login')
   }
 }
 
