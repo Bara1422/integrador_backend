@@ -16,7 +16,9 @@ export const protect = async (
     token = req.headers.authorization.split(' ')[1]
   }
   if (!token) {
-    return next(new NotAuthorizedError())
+    return res
+      .status(401)
+      .json({ error: 'No se proporciono un token de autorizacion' })
   }
   try {
     const decode: any = jwt.verify(token, process.env.JWT_SECRET!)
@@ -24,13 +26,13 @@ export const protect = async (
     let user = await interactors.GetUserByIdInteractor(decode.id)
 
     if (!user) {
-      return next(new NotAuthorizedError())
+      return res.status(401).json({ error: 'Token de autorizacion no valido' })
     }
 
     req.user = user
     return next()
   } catch (error) {
-    return next(new NotAuthorizedError())
+    return res.status(401).json({ error: 'token de autorizacion no valido' })
   }
 }
 
