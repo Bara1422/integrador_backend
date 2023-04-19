@@ -7,8 +7,8 @@ export default class UserDataSource implements UserRepository {
     const user = await prisma.user.findUnique({
       where: { id: userId },
       include: {
-        role: true,
-      },
+        role: true
+      }
     })
 
     if (!user) {
@@ -20,8 +20,8 @@ export default class UserDataSource implements UserRepository {
       email: user.email,
       role: {
         roleId: user.roleId,
-        roleName: user.role.role,
-      },
+        roleName: user.role.role
+      }
     }
   }
 }

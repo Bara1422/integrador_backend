@@ -11,7 +11,7 @@ export const signin = async (
     name,
     email,
     password,
-    roleId: Number(roleId),
+    roleId: Number(roleId)
   })
 
   if (!signinResponse.success) {
@@ -29,7 +29,7 @@ export const login = async (
   const { email, password } = req.body
   const loginResponse = await interactors.LoginAuthInteractor({
     email,
-    password,
+    password
   })
 
   if (!loginResponse.success) {
@@ -38,4 +38,3 @@ export const login = async (
 
   res.status(200).json({ message: 'success', ...loginResponse })
 }
-

@@ -10,8 +10,8 @@ export default class OrderDatasource implements OrderRepository {
   public async createOrder(data: OrderRequestDto): Promise<Result<Order>> {
     const state = await prisma.states.findUnique({
       where: {
-        state: 'pending',
-      },
+        state: 'pending'
+      }
     })
 
     if (!state) {
@@ -22,7 +22,7 @@ export default class OrderDatasource implements OrderRepository {
       return {
         unitPrice: item.unitPrice,
         quantity: item.quantity,
-        productsId: item.productId,
+        productsId: item.productId
       }
     })
     try {
@@ -35,15 +35,15 @@ export default class OrderDatasource implements OrderRepository {
           subtotal: data.subtotal,
           OrderItems: {
             createMany: {
-              data: [...oi],
-            },
+              data: [...oi]
+            }
           },
           ShippingDetails: {
             create: {
-              ...data.shippingDetails,
-            },
-          },
-        },
+              ...data.shippingDetails
+            }
+          }
+        }
       })
 
       return { success: true, result: order }
@@ -51,7 +51,7 @@ export default class OrderDatasource implements OrderRepository {
       return { success: false, err: new ServerError('Hubo un error') }
     }
   }
-  
+
   public async getOrders(): Promise<Result<Order[]>> {
     try {
       const orders = await prisma.orders.findMany()
@@ -63,7 +63,7 @@ export default class OrderDatasource implements OrderRepository {
   }
   public async getOrdersByUserId(userId: number): Promise<Result<Order[]>> {
     const ordersByUserId = await prisma.orders.findMany({
-      where: { userId: userId },
+      where: { userId: userId }
     })
     if (!ordersByUserId) {
       let err = new ServerError('No hay ordenes de este usuario')
