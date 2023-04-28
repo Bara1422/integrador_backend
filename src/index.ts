@@ -22,7 +22,11 @@ const PORT = process.env.PORT || 5000
 dotenv.config()
 
 //Cors enable
-server.use(cors())
+const corsOptions = {
+  origin: 'https://tod-gaming-reactintegrador.vercel.app',
+  optionsSuccessStatus: 200
+}
+server.use(cors(corsOptions))
 
 //middleware para parser json en el body
 server.use(express.json())
