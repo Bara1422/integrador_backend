@@ -8,7 +8,11 @@
   ],
   "routes": [
     {
-      "src": "(.*)",
+      "src": "/api/v1/(.*)",
+      "dest": "src/index.ts"
+    },
+    {
+      "src": "/",
       "dest": "src/index.ts"
     }
   ]
