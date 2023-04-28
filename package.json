@@ -14,7 +14,8 @@
     "generate": "prisma generate",
     "seed": "prisma db seed",
     "studio": "prisma studio",
-    "build": "tsc --build tsconfig.json"
+    "build": "tsc --build tsconfig.json",
+    "vercel-build": "npx prisma migrate deploy"
   },
   "repository": {
     "type": "git",
