@@ -17,7 +17,7 @@ const client = new Client({
 client.connect()
 
 const PORT = process.env.PORT || 5000
-// a
+
 //Load ENV vars
 dotenv.config()
 
