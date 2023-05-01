@@ -4,17 +4,8 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import morgan from 'morgan'
 import { errorHandler } from './middlewares/error-handler'
-import { Client } from 'pg'
 
 const server = express()
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
-})
-
-client.connect()
 
 const PORT = process.env.PORT || 5000
 
