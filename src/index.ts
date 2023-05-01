@@ -23,7 +23,7 @@ dotenv.config()
 
 //Cors enable
 const corsOptions = {
-  origin: 'https://tod-gaming-reactintegrador.vercel.app',
+  origin: 'https://tod-gaming-reactintegrador-bara1422.vercel.app',
   optionsSuccessStatus: 200
 }
 server.use(cors(corsOptions))
